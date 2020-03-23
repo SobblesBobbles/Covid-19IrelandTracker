@@ -1,0 +1,15 @@
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Covid19Tracker.Core.dll
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Covid19Tracker.Core.pdb
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\obj\Debug\Covid19Tracker.Core.dll
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\obj\Debug\Covid19Tracker.Core.pdb
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\obj\Debug\Covid19Tracker.Core.csprojAssemblyReference.cache
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\obj\Debug\Covid19Tracker.Core.csproj.CopyComplete
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Covid19Tracker.Core.dll.config
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Covid19Tracker.Vm.dll
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\EntityFramework.dll
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\Covid19Tracker.Vm.pdb
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\EntityFramework.xml
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Core\bin\Debug\EntityFramework.SqlServer.xml
