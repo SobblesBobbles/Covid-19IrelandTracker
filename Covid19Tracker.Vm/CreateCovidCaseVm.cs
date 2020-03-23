@@ -30,6 +30,11 @@ namespace Covid19Tracker.Vm
         [Required(ErrorMessage ="Location requred")]
         public int LocationId { get; set; }
 
+        [Required(ErrorMessage ="CaseType required")]
+        public int CaseTypeId { get; set; }
+
+        public Dictionary<int, string> CaseTypes { get; set; }
+
         public Dictionary<int,string> AllLocations { get; set; }
     }
 }

@@ -2,3 +2,4 @@ C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Vm\bin\Debug\Cov
 C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Vm\bin\Debug\Covid19Tracker.Vm.pdb
 C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Vm\obj\Debug\Covid19Tracker.Vm.dll
 C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Vm\obj\Debug\Covid19Tracker.Vm.pdb
+C:\Users\Sobbles\Desktop\Projects\Covid19Tracker\Covid19Tracker.Vm\obj\Debug\Covid19Tracker.Vm.csprojAssemblyReference.cache

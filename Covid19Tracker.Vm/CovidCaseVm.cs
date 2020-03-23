@@ -15,5 +15,6 @@ namespace Covid19Tracker.Vm
         public string County { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public string CaseType { get; set; }
     }
 }

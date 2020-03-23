@@ -29,9 +29,35 @@ namespace Covid19Tracker.Core
                     AgeRange = s.AgeGroup,
                     Gender = s.Gender,
                     Town = s.Town.TownName,
-                    County = s.Town.County.CountyName
+                    County = s.Town.County.CountyName,
+                    Longitude = s.Town.Longitude,
+                    Latitude = s.Town.Latitude,
+                    CaseType = s.CaseType.CovidTypeDescription
                 }).ToList();
 
+
+               var AgeBreakdown = CovidCases.GroupBy(g => g.AgeRange)
+                                                   .Select(s => new
+                                                   {
+                                                       Id = s.Key,  
+                                                       AgeGroup = s.Key,
+                                                       NumberOfCases = s.Count()
+                                                   })
+                                                    .OrderByDescending(g => g.Id)
+                                                    .ToList();
+
+                var CaseTypeBreakdown = CovidCases.GroupBy(g=>g.CaseType).Select(s => new
+                                                    {
+                                                        Id = s.Key,
+                                                        CaseType = s.FirstOrDefault().CaseType,
+                                                        NumberOfCases = s.Count()
+                                                    })
+                                                    .OrderByDescending(g => g.Id)
+                                                    .ToList();
+
+
+                vm.CaseBreakdown = JsonConvert.SerializeObject(CaseTypeBreakdown);
+                vm.AgeBreakdown = JsonConvert.SerializeObject(AgeBreakdown);
                 vm.CurrentCovidCases = CovidCases;
                 vm.CovidCasesJson =JsonConvert.SerializeObject(vm.CurrentCovidCases);
 
@@ -53,7 +79,8 @@ namespace Covid19Tracker.Core
                     AgeGroup = vm.AgeGroupPicked,
                     DateDiagnosed = vm.DateDiagnosed,
                     Gender = vm.GenderValue,
-                    LocationId = vm.LocationId 
+                    LocationId = vm.LocationId,
+                    CaseTypeId = vm.CaseTypeId
                 };
                 var AddedToCases = _context.CovidCase.Add(CaseToadd);
                 _context.SaveChanges();

@@ -36,21 +36,22 @@ namespace Covid19Tracker.Controllers
         {
             CreateCovidCaseOverview vm = new CreateCovidCaseOverview();
             AgeGroup Ages = new AgeGroup();
-            GenderFactory Genders = new GenderFactory();
+            CaseFactory Cases = new CaseFactory();
 
             vm.AllLocations = _CovidCaseManager.GetAllLocations();
             vm.AgeGroupRanges = Ages.GetAges();
-            vm.GenderRange = Genders.GetGenders();
+            vm.GenderRange = Cases.GetGenders();
+            vm.CaseTypes = Cases.GetCaseTypes();
             return View("AddCovidCase", vm);
         }
         [HttpPost]
-        public async Task<ActionResult> CreateCovidCase (CreateCovidCaseOverview vm)
+        public void CreateCovidCase (CreateCovidCaseOverview vm)
         {
             try
             {
                 var result = _CovidCaseManager.AddCovidCase(vm);
 
-                return Index();
+                
             }
             catch(Exception e)
             {

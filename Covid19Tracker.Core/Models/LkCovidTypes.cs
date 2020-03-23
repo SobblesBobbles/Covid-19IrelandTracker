@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Covid19Tracker.Core.Models
 {
-    [Table("Covid_Counties")]
+    [Table("Lk_Covid_Types ")]
     public class LkCovidTypes
     {
         [Key]

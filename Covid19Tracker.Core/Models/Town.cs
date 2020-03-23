@@ -22,6 +22,11 @@ namespace Covid19Tracker.Core.Models
         [Column("Town_Name")]
         public string TownName { get; set; }
 
+        [Column("Longitude")]
+        public string Longitude { get; set; }
+
+        [Column("Latitude")]
+        public string Latitude { get; set; }
         public virtual County County { get; set; }
 
         public virtual List<CovidCase> Cases { get; set; }

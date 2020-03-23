@@ -10,7 +10,7 @@ namespace Covid19Tracker.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Case");
         }
 
         public ActionResult About()

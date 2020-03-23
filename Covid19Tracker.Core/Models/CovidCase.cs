@@ -27,8 +27,14 @@ namespace Covid19Tracker.Core.Models
         [ForeignKey("Town")]
         [Column("Location_Id")]
         public int LocationId { get; set; }
-
         public virtual Town Town { get; set; }
+
+
+        [ForeignKey("CaseType")]
+        [Column("Covid_Type_Id")]
+        public int CaseTypeId { get; set; }
+        public virtual LkCovidTypes CaseType { get; set; }
+      
 
     }
 }

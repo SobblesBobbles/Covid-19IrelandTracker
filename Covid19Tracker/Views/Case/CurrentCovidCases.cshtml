@@ -23,45 +23,36 @@
         border-radius: 50%;
         cursor: pointer;
     }
-</style>
 
- 
-     
-  
+    #CovidCaseTable td {
+        padding: 0px 5px 2px 0px;
+    }
+</style>
 
 
 <div class="row" style="margin-top:2%;">
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Heat Map</h3>
+                <h3 class="panel-title">Statistics Dashboard</h3>
             </div>
             <div class="panel-body">
                 <div id="map"></div>
+
+                <div class="panel panel-default" style="padding-bottom:0px;">
+                    <div class="panel-heading">Age Breakdown</div>
+                    <div class="panel-body">
+                        <div id="AgeBreakdown">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-        @*<div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Panel title</h3>
-            </div>
-            <div class="panel-body">
-
-            </div>
-        </div>*@
-
-
-
     </div>
     <div class="col-md-6">
-
-
         <div class="panel panel-default">
             <div class="panel-heading"> Cases Breakdown:</div>
-
             <div class="panel-body">
-
                 <table class="table" id="CovidCaseTable">
                     <thead>
                         <tr>
@@ -72,7 +63,6 @@
                             <th>County</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         @foreach (var row in Model.CurrentCovidCases)
                         {
@@ -86,17 +76,26 @@
                         }
                     </tbody>
                 </table>
+                <div class="panel panel-default" style="margin-top:2%;">
+                    <div class="panel-heading">Case Breakdown</div>
+                    <div class="panel-body">
+                        <div id="CaseBreakdown">
+                        </div>
+                    </div>
+                </div>
             </div>
+         
         </div>
+ 
     </div>
-</div> 
 
 
+   
+</div>
 
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
@@ -106,58 +105,35 @@
     mapboxgl.setRTLTextPlugin(
         'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js'
     );
+    var cases= @Html.Raw(Json.Encode(Model.CurrentCovidCases));
+    var NumberOfCases = @Model.CurrentCovidCases.Count;
+    var Features = [];
+    for(var i=0; i < NumberOfCases; i++){
+        var item = cases[i];
 
+        
+                  Features.push({
+                    "type": 'Feature',
+                    "geometry": {
+                        "type": 'Point',
+                        "coordinates": [item.Longitude, item.Latitude]
+                    },
+                    "properties": {
+                        "title": 'Mapbox',
+                        "town": item.Town,
+                        "Case": item.CaseType
+                
+                
+                    }
+                 });
+       
+  
+    }
 
     var geojson = {
         type: 'FeatureCollection',
-        features: [{
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [-6.663, 53.217]
-            },
-            properties: {
-                title: 'Mapbox',
-                description: 'Washington, D.C.'
-           
-            }
-        },
-        {
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [-6.663, 53.217]
-            },
-            properties: {
-                title: 'Mapbox',
-                description: 'San Francisco, California'
-            }
-            },
-           {
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [-8.663, 53.217]
-            },
-            properties: {
-                title: 'Mapbox',
-                description: 'San Francisco, California'
-            }
-            },
-           {
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [-8.663, 53.217]
-            },
-            properties: {
-                title: 'Mapbox',
-                description: 'San Francisco, California'
-            }
-        }]
+        features : Features
     };
-
-
     var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
@@ -165,23 +141,7 @@
         zoom: 10 // starting zoom
     });
 
-
-    //geojson.features.forEach(function(marker) {
-
-    //  // create a HTML element for each feature
-    //  var el = document.createElement('div');
-    //  el.className = 'marker';
-
-    //  // make a marker for each feature and add to the map
-    //  new mapboxgl.Marker(el)
-    //    .setLngLat(marker.geometry.coordinates)
-    //    .addTo(map);
-    //});
-
-
     ////////////////////////////////////////////////
-
-
 
     map.on('load', function () {
         // Add a new source from our GeoJSON data and
@@ -279,16 +239,31 @@
         // description HTML from its properties.
         map.on('click', 'unclustered-point', function (e) {
 
+            console.log("/////");
             var coordinates = e.features[0].geometry.coordinates.slice();
-            var mag = e.features[0].properties.mag;
-            var tsunami;
-
-            if (e.features[0].properties.tsunami === 1) {
-                tsunami = 'yes'
-            } else {
-                tsunami = 'no'
-            }
-
+            var town = e.features[0].properties.town;
+            var Confirmed = 0;
+            var AwaitingResults = 0;
+            var AwaitingTest = 0;
+            var InTown = 0;
+             cases.map(function (item) {
+                 console.log(item);
+                    if (item.Town == town) {
+                        InTown++;
+                        if (item.CaseType == "Confirmed") {
+                            Confirmed++;
+                        }
+                        if (item.CaseType == "Awaiting Results") {
+                            AwaitingResults++;
+                        }
+                          if (item.CaseType == "Awaiting Test") {
+                            AwaitingResults++;
+                        }
+                    }
+           });
+         
+       
+         
             // Ensure that if the map is zoomed out such that
             // multiple copies of the feature are visible, the
             // popup appears over the copy being pointed to.
@@ -298,8 +273,11 @@
 
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
-                .setHTML("magnitude: " + mag + "<br>Was there a tsunami?: " + tsunami)
+                .setHTML(town + ":<br> " + "Confirmed:" + Confirmed + "<br> Awaiting Results :" + AwaitingResults + "<br> Awaiting Testing : " + AwaitingTest)
                 .addTo(map);
+            InTown = 0;
+            AwaitingResults = 0;
+            Confirmed = 0;
         });
 
         map.on('mouseenter', 'clusters', function () {
@@ -313,10 +291,44 @@
 </script>
 <script>
 
+    // AGE BREAKDOWN
+    var AgeData = @Html.Raw(Model.AgeBreakdown);
+
+
+    var Agechart = am4core.create("AgeBreakdown", am4charts.PieChart);
+    Agechart.data = AgeData;
+    console.log(Agechart.data);
+
+   // AgeBreakdown
+    var pieSeries = Agechart.series.push(new am4charts.PieSeries());
+        pieSeries.dataFields.value = "NumberOfCases";
+        pieSeries.dataFields.category = "AgeGroup";
+        pieSeries.slices.template.stroke = am4core.color("#fff");
+        pieSeries.slices.template.strokeWidth = 2;
+        pieSeries.slices.template.strokeOpacity = 1;
+        pieSeries.hiddenState.properties.opacity = 1;
+        pieSeries.hiddenState.properties.endAngle = -90;
+        pieSeries.hiddenState.properties.startAngle = -90;
+
+
+
+  
+
+ 
+    ///////
+
+        var Casechart = am4core.create("CaseBreakdown", am4charts.PieChart);
+        Casechart.data = @Html.Raw(Model.CaseBreakdown);
+        var pieSeries = Casechart.series.push(new am4charts.PieSeries());
+        pieSeries.dataFields.value = "NumberOfCases";
+        pieSeries.dataFields.category = "CaseType";
+
+    //////
+
 
     var table = $('#CovidCaseTable').DataTable({
         "paging": true,
-        "pageLength": 5,
+        "pageLength": 15,
         "dom": '<"top">ft<"bottom"p><"clear">'
     });
 </script>
