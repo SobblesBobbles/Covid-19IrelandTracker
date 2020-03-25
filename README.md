@@ -19,7 +19,7 @@ Case Breakdown - This shows the breakdown of the cases with reference to age-gro
 Town Breakdown - THis shows the top 4 infected areas and their breakdown of case types.
 
 ### Create a case
-![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerCreateCase.PNG)
+![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19CreateCase.PNG)
 
 
 ## Mobile:
