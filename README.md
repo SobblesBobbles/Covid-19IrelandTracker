@@ -17,3 +17,11 @@ Geo-Location - This panel shows a map of Ireland with infected areas and their c
 Cases - Is a datatable that shows the location, age-group, gender and the date of diagnosis. 
 Case Breakdown - This shows the breakdown of the cases with reference to age-groups and case types.
 Town Breakdown - THis shows the top 4 infected areas and their breakdown of case types.
+
+### Create a case
+![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerCreateCase.PNG)
+
+
+## Mobile:
+![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerCreateCase.PNG)
+![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerCreateCaseMobile.PNG)
