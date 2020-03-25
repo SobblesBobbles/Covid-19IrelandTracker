@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DbConnection-Web.config Connection String" description="DbConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=SQL5053.site4now.net;Initial Catalog=DB_A56A60_Covid;User Id=DB_A56A60_Covid_admin;Password=7hiit4et;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Sobbles\\Desktop\\Projects\\Covid19Tracker\\Covid19Tracker\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DbConnection']/@connectionString" />
+  </parameter>
+</parameters>

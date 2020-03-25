@@ -13,5 +13,6 @@ namespace Covid19Tracker.Vm
         public string AgeBreakdown { get; set; }
         public string CovidCasesJson { get; set; }
         public string CaseBreakdown { get; set; }
+        public string TownBreakdown { get; set; }
     }
 }

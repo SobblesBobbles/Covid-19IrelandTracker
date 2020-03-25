@@ -25,7 +25,7 @@ namespace Covid19Tracker.Core
                 CurrentCovidCasesOverview vm = new CurrentCovidCasesOverview();
                 var CovidCases = _context.CovidCase.ToList().Select(s => new CovidCaseVm
                 {
-                    DateDiagnosed = s.DateDiagnosed,
+                    DateDiagnosed = s.DateDiagnosed.Date.Date,
                     AgeRange = s.AgeGroup,
                     Gender = s.Gender,
                     Town = s.Town.TownName,
@@ -34,6 +34,7 @@ namespace Covid19Tracker.Core
                     Latitude = s.Town.Latitude,
                     CaseType = s.CaseType.CovidTypeDescription
                 }).ToList();
+
 
 
                var AgeBreakdown = CovidCases.GroupBy(g => g.AgeRange)
@@ -55,7 +56,20 @@ namespace Covid19Tracker.Core
                                                     .OrderByDescending(g => g.Id)
                                                     .ToList();
 
+                var TownBreakdown = CovidCases.GroupBy(g => g.Town).Select(s => new
+                                                    {
+                                                        Id = s.Key,
+                                                        Town = s.FirstOrDefault().Town,
+                                                        Confirmed = s.Count(c=>c.CaseType=="Confirmed"),
+                                                        AwaitingResults = s.Count(c=>c.CaseType=="Awaiting Results"),
+                                                        AwaitingTesting = s.Count(c=>c.CaseType=="Awaiting Test"),
+                                                        NumberOfCases = s.Count()
+                                                    })
+                                                    .OrderByDescending(g => g.NumberOfCases)
+                                                    .Take(4)
+                                                    .ToList();
 
+                vm.TownBreakdown = JsonConvert.SerializeObject(TownBreakdown);
                 vm.CaseBreakdown = JsonConvert.SerializeObject(CaseTypeBreakdown);
                 vm.AgeBreakdown = JsonConvert.SerializeObject(AgeBreakdown);
                 vm.CurrentCovidCases = CovidCases;
@@ -97,9 +111,27 @@ namespace Covid19Tracker.Core
         public Dictionary<int, string> GetAllLocations ()
         {
             
-            Dictionary<int, string> Locations = _context.Town.ToDictionary(k => k.TownId, v => v.TownName);
+            Dictionary<int, string> Locations = _context.Town.ToDictionary(k => k.TownId, v => v.TownName+" ("+v.County.CountyName+")");
 
             return Locations;
+
+       
+
+        }
+
+        public void DeleteOldCases()
+        {
+            var DateNow = DateTime.Now;
+            var ThreeWeeksAgo = DateNow.AddDays(-21);
+            var OldCases = _context.CovidCase.Where(w => w.DateDiagnosed <= ThreeWeeksAgo.Date).ToList();
+
+            foreach (var item in OldCases)
+            {
+
+                _context.CovidCase.Remove(item);
+            }
+
+            _context.SaveChanges();
         }
     }
 }

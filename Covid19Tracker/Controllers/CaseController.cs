@@ -21,6 +21,7 @@ namespace Covid19Tracker.Controllers
         {
             try
             {
+                _CovidCaseManager.DeleteOldCases();
                 var CurrentCovidCases = _CovidCaseManager.GetCovidCases();
                 return View("CurrentCovidCases", CurrentCovidCases);
             }
