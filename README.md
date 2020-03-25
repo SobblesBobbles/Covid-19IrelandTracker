@@ -24,7 +24,7 @@ Town Breakdown - THis shows the top 4 infected areas and their breakdown of case
 
 
 ## Mobile:
-![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerCreateCaseMobile.PNG)
+
 ![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerCreateCaseMobile.PNG)
 ![Dashboard](https://github.com/SobblesBobbles/Covid-19IrelandTracker/blob/master/Images/Covid19IrelandTrackerDashboardMobile2.PNG)
 
